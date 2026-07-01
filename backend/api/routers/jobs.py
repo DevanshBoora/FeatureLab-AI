@@ -39,10 +39,32 @@ def submit_job(
     )
     created_job = job_repo.create(job)
     
-    # Normally we would initiate the JobManager here with a task function
-    # Example:
-    # manager = JobManager(job_repo, background_tasks)
-    # manager.execute_job(created_job.id, ml_pipeline_task, request.dataset_id, request.configuration)
+    # We need to run the ML task in the background.
+    # To pass a db session, we can write a tiny wrapper that creates one.
+    target_column = request.configuration.get("target_column") if hasattr(request, "configuration") else None
+    user_config = request.configuration if hasattr(request, "configuration") else {}
+    
+    # If this is a training task, trigger the pipeline
+    if request.task_type == "training" and target_column:
+        manager = JobManager(job_repo, background_tasks)
+        
+        async def task_wrapper(job_id, ds_id, ws_id, target, config):
+            from core.database import SessionLocal
+            db = SessionLocal()
+            try:
+                from ml_engine.manager import ml_pipeline_task
+                await ml_pipeline_task(job_id, ds_id, ws_id, target, config, db)
+            finally:
+                db.close()
+                
+        manager.execute_job(
+            created_job.id, 
+            task_wrapper, 
+            request.dataset_id, 
+            request.workspace_id, 
+            target_column, 
+            user_config
+        )
     
     return created_job
 

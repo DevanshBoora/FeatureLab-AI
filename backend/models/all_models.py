@@ -8,7 +8,7 @@ from core.database import Base
 class WorkspaceModel(Base):
     __tablename__ = "workspaces"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -23,9 +23,9 @@ class WorkspaceModel(Base):
 class UserModel(Base):
     __tablename__ = "users"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, index=True, nullable=False)
-    workspace_id = Column(UUID(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
+    workspace_id = Column(Uuid(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
     hashed_password = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -36,8 +36,8 @@ class UserModel(Base):
 class DatasetModel(Base):
     __tablename__ = "datasets"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    workspace_id = Column(UUID(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    workspace_id = Column(Uuid(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
     name = Column(String, nullable=False)
     description = Column(String, nullable=True)
     file_path = Column(String, nullable=False)
@@ -56,10 +56,10 @@ class DatasetModel(Base):
 class JobModel(Base):
     __tablename__ = "jobs"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    workspace_id = Column(UUID(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
-    dataset_id = Column(UUID(as_uuid=True), ForeignKey("datasets.id"), nullable=True)
-    experiment_id = Column(UUID(as_uuid=True), ForeignKey("experiments.id"), nullable=True)
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    workspace_id = Column(Uuid(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
+    dataset_id = Column(Uuid(as_uuid=True), ForeignKey("datasets.id"), nullable=True)
+    experiment_id = Column(Uuid(as_uuid=True), ForeignKey("experiments.id"), nullable=True)
     status = Column(String, default="QUEUED", nullable=False)
     progress = Column(Float, default=0.0)
     task_type = Column(String, nullable=False)
@@ -77,10 +77,10 @@ class JobModel(Base):
 class ExperimentModel(Base):
     __tablename__ = "experiments"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    workspace_id = Column(UUID(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
-    dataset_id = Column(UUID(as_uuid=True), ForeignKey("datasets.id"), nullable=False)
-    job_id = Column(UUID(as_uuid=True), ForeignKey("jobs.id"), nullable=True)
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    workspace_id = Column(Uuid(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
+    dataset_id = Column(Uuid(as_uuid=True), ForeignKey("datasets.id"), nullable=False)
+    job_id = Column(Uuid(as_uuid=True), ForeignKey("jobs.id"), nullable=True)
     name = Column(String, nullable=False)
     task_type = Column(String, nullable=False)
     configuration = Column(JSON, nullable=False)
@@ -98,9 +98,9 @@ class ExperimentModel(Base):
 class ArtifactModel(Base):
     __tablename__ = "artifacts"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    workspace_id = Column(UUID(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
-    experiment_id = Column(UUID(as_uuid=True), ForeignKey("experiments.id"), nullable=False)
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    workspace_id = Column(Uuid(as_uuid=True), ForeignKey("workspaces.id"), nullable=False)
+    experiment_id = Column(Uuid(as_uuid=True), ForeignKey("experiments.id"), nullable=False)
     name = Column(String, nullable=False)
     artifact_type = Column(String, nullable=False)
     file_path = Column(String, nullable=False)

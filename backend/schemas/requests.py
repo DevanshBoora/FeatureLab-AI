@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Dict, Any
 from uuid import UUID
 
 class WorkspaceCreate(BaseModel):
@@ -17,3 +17,4 @@ class JobCreate(BaseModel):
     dataset_id: Optional[UUID] = None
     experiment_id: Optional[UUID] = None
     task_type: str
+    configuration: Optional[Dict[str, Any]] = None
