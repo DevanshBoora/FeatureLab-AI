@@ -117,7 +117,7 @@ export default function DatasetDetailPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium">Target Column</label>
-              <Select onValueChange={setTargetColumn} value={targetColumn}>
+              <Select onValueChange={(val) => setTargetColumn(val || "")} value={targetColumn}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select target..." />
                 </SelectTrigger>
