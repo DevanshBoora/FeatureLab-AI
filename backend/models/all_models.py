@@ -71,7 +71,7 @@ class JobModel(Base):
 
     workspace = relationship("WorkspaceModel", back_populates="jobs")
     dataset = relationship("DatasetModel", back_populates="jobs")
-    experiment = relationship("ExperimentModel", back_populates="jobs")
+    experiment = relationship("ExperimentModel", back_populates="jobs", foreign_keys="[JobModel.experiment_id]")
 
 
 class ExperimentModel(Base):

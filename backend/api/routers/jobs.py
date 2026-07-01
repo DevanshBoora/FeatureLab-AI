@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from typing import List
 from uuid import UUID
 from datetime import datetime
 import uuid
@@ -78,7 +79,7 @@ def get_job_status(
         raise HTTPException(status_code=404, detail="Job not found")
     return job
 
-@router.get("/workspace/{workspace_id}", response_model=list[JobResponse])
+@router.get("/workspace/{workspace_id}", response_model=List[JobResponse])
 def list_jobs_by_workspace(
     workspace_id: UUID,
     job_repo: JobRepository = Depends(get_job_repo)
