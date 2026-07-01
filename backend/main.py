@@ -19,10 +19,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from api.routers import workspaces, datasets
+from api.routers import workspaces, datasets, jobs
 
 app.include_router(workspaces.router, prefix=settings.API_V1_STR)
 app.include_router(datasets.router, prefix=settings.API_V1_STR)
+app.include_router(jobs.router, prefix=settings.API_V1_STR)
 
 @app.exception_handler(FeatureLabException)
 async def featurelab_exception_handler(request: Request, exc: FeatureLabException):
