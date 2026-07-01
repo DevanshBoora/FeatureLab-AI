@@ -77,61 +77,15 @@ export default function Sidebar() {
             )
           })}
         </nav>
-
-        {/* Projects Section */}
-        <div>
-          <h4 className="px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-            Projects
-          </h4>
-          <nav className="space-y-1">
-            {projects.map((project) => (
-              <div key={project.name} className="flex items-center justify-between px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-accent/30 cursor-pointer transition-colors">
-                <div className="flex items-center space-x-3">
-                  <div className="h-2 w-2 rounded-full bg-emerald-400/70" />
-                  <span>{project.name}</span>
-                </div>
-                {project.badge && (
-                  <span className="bg-muted text-muted-foreground text-xs font-medium px-2 py-0.5 rounded-full">
-                    {project.badge}
-                  </span>
-                )}
-              </div>
-            ))}
-          </nav>
-        </div>
-
-        {/* Members Section */}
-        <div>
-          <div className="flex items-center justify-between px-4 mb-3">
-            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-              Members
-            </h4>
-            <button className="text-muted-foreground hover:text-foreground">+</button>
-          </div>
-          <div className="space-y-3 px-3">
-            {members.map((member) => (
-              <div key={member.name} className="flex items-center space-x-3 cursor-pointer group">
-                <Avatar className="h-8 w-8">
-                  <AvatarFallback className={`text-xs text-white ${member.color}`}>{member.initial}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium text-foreground group-hover:text-emerald-400 transition-colors leading-none mb-1">{member.name}</p>
-                  <p className="text-[10px] text-muted-foreground leading-none">{member.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       <div className="p-4 border-t border-border/50">
         <div className="flex items-center space-x-3 cursor-pointer">
           <Avatar className="h-9 w-9">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>IO</AvatarFallback>
+            <AvatarFallback className="bg-emerald-600 text-white">AD</AvatarFallback>
           </Avatar>
           <div className="flex-1">
-            <p className="text-sm font-medium leading-none mb-1">Iona Rollins</p>
+            <p className="text-sm font-medium leading-none mb-1">Admin User</p>
             <p className="text-xs text-muted-foreground leading-none">Admin</p>
           </div>
         </div>
