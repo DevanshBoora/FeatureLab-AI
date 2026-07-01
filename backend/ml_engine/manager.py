@@ -81,11 +81,20 @@ async def ml_pipeline_task(
     benchmark = ModelBenchmarkPipeline(config, task_type)
     metrics = benchmark.fit_and_evaluate(X_fs, y)
     
-    # 9. Update Experiment Metrics
-    experiment.metrics = metrics
-    
-    # Save best model logic (simplified, saving the first one)
     best_model_name = list(metrics.keys())[0] if metrics else None
+    
+    # SHAP Explainability
+    shap_results = {}
+    if best_model_name:
+        from ml_engine.pipelines.explainability import ExplainabilityPipeline
+        explainer = ExplainabilityPipeline(benchmark.trained_models[best_model_name], task_type)
+        shap_results = explainer.explain(X_fs)
+    
+    # 9. Update Experiment Metrics
+    experiment.metrics = {
+        "benchmark": metrics,
+        "shap": shap_results
+    }
     
     # 10. Save Artifacts
     # Saving preprocessor
