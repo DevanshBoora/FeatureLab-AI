@@ -38,6 +38,7 @@ export const jobApi = {
     }).then(res => res.data);
   },
   get: (id: string) => api.get(`/jobs/${id}`).then(res => res.data),
+  list: (workspaceId: string) => api.get(`/jobs/workspace/${workspaceId}`).then(res => res.data),
 };
 
 export default api;

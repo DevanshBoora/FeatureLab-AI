@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description: "Enterprise Machine Learning Platform",
 };
 
+import Sidebar from "@/components/layout/Sidebar";
+import Header from "@/components/layout/Header";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,27 +19,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`}>
-        <div className="relative flex min-h-screen flex-col">
-          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
-              <div className="mr-4 flex">
-                <a className="mr-6 flex items-center space-x-2" href="/">
-                  <span className="hidden font-bold sm:inline-block">
-                    FeatureLab AI
-                  </span>
-                </a>
-                <nav className="flex items-center space-x-6 text-sm font-medium">
-                  <a className="transition-colors hover:text-foreground/80 text-foreground/60" href="/dashboard">Dashboard</a>
-                  <a className="transition-colors hover:text-foreground/80 text-foreground/60" href="/datasets">Datasets</a>
-                  <a className="transition-colors hover:text-foreground/80 text-foreground/60" href="/experiments">Experiments</a>
-                </nav>
-              </div>
-            </div>
-          </header>
-          <main className="flex-1">
-            {children}
-          </main>
+      <body className={`${inter.className} min-h-screen bg-[#0A0A0B] text-foreground antialiased selection:bg-emerald-500/30`}>
+        <div className="flex min-h-screen">
+          <Sidebar />
+          <div className="flex-1 flex flex-col min-w-0">
+            <Header />
+            <main className="flex-1 overflow-auto bg-background/50">
+              {children}
+            </main>
+          </div>
         </div>
       </body>
     </html>

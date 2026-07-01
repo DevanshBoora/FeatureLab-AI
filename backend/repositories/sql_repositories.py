@@ -100,6 +100,10 @@ class JobRepository(IJobRepository):
             self.db.refresh(model)
         return job
 
+    def list_by_workspace(self, workspace_id: UUID) -> List[Job]:
+        models = self.db.query(JobModel).filter(JobModel.workspace_id == workspace_id).all()
+        return [Job(**{k: getattr(m, k) for k in Job.model_fields.keys()}) for m in models]
+
 class ExperimentRepository(IExperimentRepository):
     def __init__(self, db: Session):
         self.db = db

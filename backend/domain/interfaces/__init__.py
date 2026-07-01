@@ -51,6 +51,10 @@ class IJobRepository(ABC):
     def update(self, job: Job) -> Job:
         pass
 
+    @abstractmethod
+    def list_by_workspace(self, workspace_id: UUID) -> List[Job]:
+        pass
+
 class IExperimentRepository(ABC):
     @abstractmethod
     def create(self, experiment: Experiment) -> Experiment:

@@ -77,3 +77,11 @@ def get_job_status(
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
     return job
+
+@router.get("/workspace/{workspace_id}", response_model=list[JobResponse])
+def list_jobs_by_workspace(
+    workspace_id: UUID,
+    job_repo: JobRepository = Depends(get_job_repo)
+):
+    jobs = job_repo.list_by_workspace(workspace_id)
+    return jobs
