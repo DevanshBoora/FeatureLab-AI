@@ -8,8 +8,9 @@ class DatasetProfiler:
     def profile(csv_bytes: bytes) -> Dict[str, Any]:
         """
         Profiles the dataset and returns a dictionary with metadata.
+        Reads a maximum of 10,000 rows to prevent MemoryErrors on free tier servers.
         """
-        df = pd.read_csv(io.BytesIO(csv_bytes))
+        df = pd.read_csv(io.BytesIO(csv_bytes), nrows=10000)
         
         row_count = len(df)
         column_count = len(df.columns)
