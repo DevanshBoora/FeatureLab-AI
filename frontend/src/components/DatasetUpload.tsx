@@ -38,7 +38,7 @@ export default function DatasetUpload({ onUploadSuccess }: { onUploadSuccess: ()
       setDescription('');
       onUploadSuccess();
     } catch (err: any) {
-      setError(err.response?.data?.detail || "Upload failed");
+      setError(err.response?.data?.detail || err.response?.data?.message || "Upload failed");
     } finally {
       setUploading(false);
     }

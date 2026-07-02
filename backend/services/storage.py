@@ -15,6 +15,7 @@ class StorageService:
         except Exception as e:
             # Catch Invalid API Key or network errors so the app doesn't crash entirely.
             print(f"Storage init bypassed due to error: {e}")
+            self.supabase = None
 
     def upload_file(self, file_path: str, file_bytes: bytes) -> str:
         if not self.supabase:
